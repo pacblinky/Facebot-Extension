@@ -1,5 +1,5 @@
-let facebookGenerate_btn;
-let protonCreate_btn;
+var facebookGenerate_btn;
+var protonCreate_btn;
 
 if(document.readyState !== 'complete') {
     window.addEventListener('load', afterWindowLoaded);
@@ -32,7 +32,8 @@ function generateAccount(){
 
 function afterWindowLoaded(){
     if (facebookGenerate_btn == undefined){
-        let bottomControls_div = document.getElementsByName("websubmit")[0].parentElement
+        var webSubmit_btn = document.getElementsByName("websubmit")[0];
+        if (webSubmit_btn != undefined){ var bottomControls_div = webSubmit_btn.parentElement; }
         if(bottomControls_div != undefined){
             facebookGenerate_btn = document.createElement("button");
             facebookGenerate_btn.innerText = "Generate";
