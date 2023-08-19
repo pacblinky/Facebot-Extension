@@ -1,5 +1,5 @@
 var facebookGenerate_btn = undefined;
-var protonCreate_btn = undefined;
+var protonGenerate_btn = undefined;
 
 if(document.readyState !== 'complete') {
     window.addEventListener('load', afterWindowLoaded);
@@ -13,27 +13,52 @@ function afterWindowLoaded() {
 }
 
 function protonElements() {
-    if (window.location.href.includes("facebook.com/reg") || window.location.href.includes("facebook.com/signup")){
-        if (protonCreate_btn != undefined) {
-            
+    if (window.location.href.includes("account.proton.me/signup"))
+    {
+        if (protonGenerate_btn == undefined)
+        {
+            var createAccount_btn = null;
+            const observer = new MutationObserver(() => {
+                createAccount_btn = document.querySelector("button[type=submit]");
+                if(createAccount_btn){
+                    protonGenerate_btn = document.createElement("button");
+                    protonGenerate_btn.innerText = "Generate";
+                    protonGenerate_btn.id = "proton_generate";
+                    protonGenerate_btn.classList.add("button", "w100", "button-large", "button-solid-norm", "mt-6");
+                    protonGenerate_btn.style.backgroundColor = "blue";
+                    createAccount_btn.parentNode.insertBefore(protonGenerate_btn, createAccount_btn);
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(document.body, {childList: true, subtree: true});
         }
     }
 }
 
 function facebookElements() {
     if (window.location.href.includes("facebook.com/reg") || window.location.href.includes("facebook.com/signup"))
-    if (facebookGenerate_btn == undefined) {
-        var webSubmit_btn = document.getElementsByName("websubmit")[0];
-        if (webSubmit_btn){ var bottomControls_div = webSubmit_btn.parentElement; }
-        if (bottomControls_div) {
-            facebookGenerate_btn = document.createElement("button");
-            facebookGenerate_btn.innerText = "Generate";
-            facebookGenerate_btn.id = "facebook_generate"
-            facebookGenerate_btn.classList.add("_6j", "mvm", "_6wk", "_6wl", "_58mi", "_3ma", "_6o", "_6v");
-            facebookGenerate_btn.style.backgroundColor = "blue";
-            facebookGenerate_btn.style.marginLeft = "6px";
-            facebookGenerate_btn.addEventListener("click", generateAccount);
-            bottomControls_div.appendChild(facebookGenerate_btn);
+    {
+        if (facebookGenerate_btn == undefined)
+        {
+            var webSubmit_btn = document.getElementsByName("websubmit")[0];
+            
+            if (webSubmit_btn)
+            {
+                var bottomControls_div = webSubmit_btn.parentElement;
+            }
+
+            if (bottomControls_div)
+            {
+                facebookGenerate_btn = document.createElement("button");
+                facebookGenerate_btn.innerText = "Generate";
+                facebookGenerate_btn.id = "facebook_generate"
+                facebookGenerate_btn.classList.add("_6j", "mvm", "_6wk", "_6wl", "_58mi", "_3ma", "_6o", "_6v");
+                facebookGenerate_btn.style.backgroundColor = "blue";
+                facebookGenerate_btn.style.marginLeft = "6px";
+                facebookGenerate_btn.addEventListener("click", generateAccount);
+                bottomControls_div.appendChild(facebookGenerate_btn);
+            }
         }
     }
 }
@@ -52,6 +77,10 @@ function generateAccount() {
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function editValue(element, value){
