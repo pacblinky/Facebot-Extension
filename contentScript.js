@@ -1,5 +1,5 @@
-var facebookGenerate_btn;
-var protonCreate_btn;
+var facebookGenerate_btn = undefined;
+var protonCreate_btn = undefined;
 
 if(document.readyState !== 'complete') {
     window.addEventListener('load', afterWindowLoaded);
@@ -7,25 +7,28 @@ if(document.readyState !== 'complete') {
     afterWindowLoaded();
 }
 
-function afterWindowLoaded() {  
-    const observer = new MutationObserver((mutationsList, observer) => {
-        // Perform actions on the target element
-        const targetElement = document.querySelector("your-target-element-selector");
-        if (targetElement) {
-          // Element found, perform actions
-          // ...
+function afterWindowLoaded() {
+    protonElements();
+    facebookElements();
+}
+
+function protonElements() {
+    if (window.location.href.includes("facebook.com/reg") || window.location.href.includes("facebook.com/signup")){
+        if (protonCreate_btn != undefined) {
+            
         }
-    }); 
-    facebookElements()
+    }
 }
 
 function facebookElements() {
+    if (window.location.href.includes("facebook.com/reg") || window.location.href.includes("facebook.com/signup"))
     if (facebookGenerate_btn == undefined) {
         var webSubmit_btn = document.getElementsByName("websubmit")[0];
-        if (webSubmit_btn != undefined){ var bottomControls_div = webSubmit_btn.parentElement; }
-        if (bottomControls_div != undefined) {
+        if (webSubmit_btn){ var bottomControls_div = webSubmit_btn.parentElement; }
+        if (bottomControls_div) {
             facebookGenerate_btn = document.createElement("button");
             facebookGenerate_btn.innerText = "Generate";
+            facebookGenerate_btn.id = "facebook_generate"
             facebookGenerate_btn.classList.add("_6j", "mvm", "_6wk", "_6wl", "_58mi", "_3ma", "_6o", "_6v");
             facebookGenerate_btn.style.backgroundColor = "blue";
             facebookGenerate_btn.style.marginLeft = "6px";
