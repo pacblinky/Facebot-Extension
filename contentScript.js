@@ -7,34 +7,23 @@ if(document.readyState !== 'complete') {
     afterWindowLoaded();
 }
 
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-  }
-
-function facebookSetValue(element, value){
-    if (element != undefined)
-        element.value = value;
-        element.focus();
-        element.blur();
+function afterWindowLoaded() {  
+    const observer = new MutationObserver((mutationsList, observer) => {
+        // Perform actions on the target element
+        const targetElement = document.querySelector("your-target-element-selector");
+        if (targetElement) {
+          // Element found, perform actions
+          // ...
+        }
+    }); 
+    facebookElements()
 }
 
-function generateAccount(){
-    facebookSetValue(document.getElementsByName("firstname")[0], "Ahmed");
-    facebookSetValue(document.getElementsByName("lastname")[0], "Morsy");
-    facebookSetValue(document.getElementsByName("reg_email__")[0], "AhmedMorsy666@gmail.com");
-    facebookSetValue(document.getElementsByName("reg_email_confirmation__")[0], "AhmedMorsy666@gmail.com")
-    facebookSetValue(document.getElementsByName("reg_passwd__")[0], "ahmedelmorsy2464");
-    facebookSetValue(document.getElementById("day"), getRndInteger(1,27));
-    facebookSetValue(document.getElementById("month"), getRndInteger(1,12));
-    facebookSetValue(document.getElementById("year"), getRndInteger(1985, 2007));
-    document.querySelector("input[name='sex'][value='1']").checked = true;
-}
-
-function afterWindowLoaded(){
-    if (facebookGenerate_btn == undefined){
+function facebookElements() {
+    if (facebookGenerate_btn == undefined) {
         var webSubmit_btn = document.getElementsByName("websubmit")[0];
         if (webSubmit_btn != undefined){ var bottomControls_div = webSubmit_btn.parentElement; }
-        if(bottomControls_div != undefined){
+        if (bottomControls_div != undefined) {
             facebookGenerate_btn = document.createElement("button");
             facebookGenerate_btn.innerText = "Generate";
             facebookGenerate_btn.classList.add("_6j", "mvm", "_6wk", "_6wl", "_58mi", "_3ma", "_6o", "_6v");
@@ -43,5 +32,29 @@ function afterWindowLoaded(){
             facebookGenerate_btn.addEventListener("click", generateAccount);
             bottomControls_div.appendChild(facebookGenerate_btn);
         }
+    }
+}
+
+function generateAccount() {
+    editValue(document.getElementsByName("firstname")[0], "Ahmed");
+    editValue(document.getElementsByName("lastname")[0], "Morsy");
+    editValue(document.getElementsByName("reg_email__")[0], "AhmedMorsy666@gmail.com");
+    editValue(document.getElementsByName("reg_email_confirmation__")[0], "AhmedMorsy666@gmail.com")
+    editValue(document.getElementsByName("reg_passwd__")[0], "ahmedelmorsy2464");
+    editValue(document.getElementById("day"), getRndInteger(1,27));
+    editValue(document.getElementById("month"), getRndInteger(1,12));
+    editValue(document.getElementById("year"), getRndInteger(1985, 2007));
+    document.querySelector("input[name='sex'][value='1']").checked = true;
+}
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function editValue(element, value){
+    if (element != undefined) {
+        element.value = value;
+        element.focus();
+        element.blur();
     }
 }
